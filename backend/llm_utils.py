@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # clf = joblib.load("model.joblib")
 # vectorizer = joblib.load("vectorizer.joblib")
 
-df = pd.read_csv("labeled_train.csv")
+# df = pd.read_csv("labeled_train.csv")
 tfidf_vectorizer = TfidfVectorizer(stop_words="english")
 tfidf_matrix = tfidf_vectorizer.fit_transform(df["Context"])
 
@@ -26,30 +26,6 @@ def classify_input_directly(text):
     vec = vectorizer.transform([text])
     pred = clf.predict(vec)[0]
     return int(pred)
-
-# def find_best_match(user_input):
-#     input_vec = tfidf_vectorizer.transform([user_input])
-#     similarity_scores = cosine_similarity(input_vec, tfidf_matrix)
-#     best_idx = similarity_scores.argmax()
-#     best_score = similarity_scores[0, best_idx]
-
-#     if best_score >= 0.3:
-#         matched_context = df.iloc[best_idx]["Context"]
-#         response_type = df.iloc[best_idx]["response_type"]
-#         return {
-#             "matched_context": matched_context,
-#             "response_type": int(response_type),
-#             "confidence": float(best_score),
-#             "source": "dataset"
-#         }
-#     else:
-#         fallback_prediction = classify_input_directly(user_input)
-#         return {
-#             "matched_context": None,
-#             "response_type": fallback_prediction,
-#             "confidence": 0,
-#             "source": "model"
-#         }
 
 def find_best_match(user_input):
     input_vec = tfidf_vectorizer.transform([user_input])
