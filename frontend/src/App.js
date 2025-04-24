@@ -116,6 +116,7 @@ function App() {
   const [aiAdvice, setAiAdvice] = useState("");
   const [showAIOption, setShowAIOption] = useState(false);
   const [loading, setLoading] = useState(false);
+  const API_BASE = "https://your-backend-url.onrender.com";
 
   const getResponseType = async () => {
     setLoading(true);
