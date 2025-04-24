@@ -11,16 +11,16 @@ api_key = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key=api_key)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+df = pd.read_csv(os.path.join(BASE_DIR, "labeled_train.csv"))
+clf = joblib.load(os.path.join(BASE_DIR, "model.joblib"))
+vectorizer = joblib.load(os.path.join(BASE_DIR, "vectorizer.joblib"))
+
 # clf = joblib.load("model.joblib")
 # vectorizer = joblib.load("vectorizer.joblib")
 
 # df = pd.read_csv("labeled_train.csv")
 tfidf_vectorizer = TfidfVectorizer(stop_words="english")
 tfidf_matrix = tfidf_vectorizer.fit_transform(df["Context"])
-
-df = pd.read_csv(os.path.join(BASE_DIR, "labeled_train.csv"))
-clf = joblib.load(os.path.join(BASE_DIR, "model.joblib"))
-vectorizer = joblib.load(os.path.join(BASE_DIR, "vectorizer.joblib"))
 
 def classify_input_directly(text):
     vec = vectorizer.transform([text])
